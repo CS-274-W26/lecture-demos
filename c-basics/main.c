@@ -156,6 +156,9 @@ int main() {
 	// Technically, there's also
 	// | (logical or, without short circuiting)
 	// & (logical and, without short circuiting)
+	
+	x = 7;
+
 	if (x >= 5 && x <= 10) {
 		// As much code here as you want
 		printf("Hello!\n");
@@ -164,8 +167,75 @@ int main() {
 	} else {
 		// As much code here as you want
 
-		if (2 & 1) {
-			
-		}
+		// Nested scope. A scope inside another scope.
+		printf("%d\n", x);
+
+		int z;
+		printf("%d\n", z);
+		// You can redeclare symbols in nested scopes
+		// This is called shadowing.
+		int x = 12;
+
+		printf("%d\n", x); // This prints 12
 	}
+	// The old x becomes "unshadowed" when the else block ends.
+
+	printf("%d\n", x); // This prints 7
+	// printf("%d\n", z); // Syntax error
+
+	// Scopes in C are loosely dictated by curly braces.
+	// A scope dictates two things:
+	// 1. Where symbols are accessible
+	// 	Symbols are accessible only within their scopes below their
+	// 	point of declaration.
+	// 2. When automatic variables are freed from memory
+	// 	When a variable's scope ends, the computer is then allowed
+	// 	to free that variable from memory.
+	
+	// an automatic variable is a regular, function-local variable.
+	// Automatic variables have automatic storage duration.
+	
+	// C has three kinds of loops:
+	// while
+	// do-while
+	// for
+	
+	int counter = 0;
+	while (counter < 10) {
+		printf("Hello\n");
+		counter = counter + 1;
+	}
+
+	counter = 0;
+	do {
+		printf("Hello\n");
+		counter = counter + 1;
+	} while(counter < 10);
+
+
+	// For loop headers have three things in them:
+	// 1. Initialization statement
+	// 2. Condition
+	// 3. Post statement
+	for (int i = 0; i < 10; i = i + 1) {
+		printf("Hello %d\n", i);
+	}
+
+	// Shorthand operators
+	// +=, -=, *=, /=, %=
+	int variable = 0;
+	variable += 7;
+
+	// ++
+	// --
+	variable++; // Post-increment
+	++variable; // Pre-increment
+
+	variable--; // Post-decrement
+	--variable; // Pre-decrement
+	
+	// printf("%d\n", variable++);
+	printf("%d\n", ++variable);
 }
+
+
