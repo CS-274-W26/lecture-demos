@@ -1,8 +1,18 @@
+#include <math.h>
 #include <stdio.h>
 
+// Function prototype. Declaration, but NOT a definition
+double volume_of_sphere(double radius);
+
+void some_other_function() {
+	volume_of_sphere(3.1f);
+}
+
+
+// A function definition AND declaration
 double volume_of_sphere(double radius) {
 	// This is the actual code that the function executes
-	double volume = 4.0 / 3.0 * 3.141592 * radius * radius * radius;
+	double volume = 4.0 / 3.0 * 3.141592 * pow(radius, 3);
 
 	return volume; // Return statements end the function
 }
@@ -16,7 +26,7 @@ void count(int n) {
 int main() {
 	printf("What is the radius of your sphere?: ");
 	double r;
-	scanf("%f", &r);
+	scanf("%lf", &r);
 
 	double v = volume_of_sphere(r);
 
@@ -28,5 +38,7 @@ int main() {
 	// "I terminated normally". Nonzero exit codes mean that the program
 	// exited suddenly because it couldn't run to completion.
 	
+	printf("%lf\n", v);
+
 	return 0;
 }
