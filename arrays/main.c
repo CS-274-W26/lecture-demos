@@ -1,6 +1,29 @@
+#include <string.h>
 #include <stdio.h>
 
+void print_numbers(int numbers[], size_t n) {
+	for (size_t i = 0; i < n; ++i) {
+		printf("%d, ", numbers[i]);
+	}
+	printf("\n");
+
+	numbers[0] = 7;
+}
+
+// You can't return arrays. You can return their base addresses, but if you
+// return the base address of a local array variable, it will create a dangling
+// pointer. The compiler will warn you. Dereferencing that base address later
+// will invoke undefined behavior (use-after-free error).
+/*
+float* create_array() {
+	float my_array[10];
+	return my_array;
+}
+*/
+
 int main() {
+	float* res = create_array();
+
 	// An array is a contiguous, homogeneous, fixed-size sequence of
 	// elements.
 	//
@@ -47,4 +70,49 @@ int main() {
 
 	ptr = &(my_cool_numbers[2]);
 	printf("%d\n", ptr[0]); // This prints the third element of the array
+
+	printf("%ld\n", sizeof(int));
+	int x = 5;
+	printf("%ld\n", sizeof(x++));
+	
+	printf("%d\n", x);
+
+	printf("%ld\n", sizeof(ptr)); // Prints 8
+	printf("%ld\n", sizeof(my_cool_numbers)); // Prints 28
+
+	// const char* hello = "Hello";
+	char hello[] = "Hello";
+	printf("%c\n", hello[1]);
+	printf("%s\n", hello);
+
+	printf("%p\n", my_cool_numbers);
+	printf("%p\n", my_cool_numbers + 1);
+
+	printf("%s\n", hello + 2);
+	hello[4] = '\0';
+	printf("%s\n", hello + 1);
+
+	// Buffer over-read
+	printf("%c\n", hello[6]);
+
+	// Buffer overflow
+	hello[6] = 'A';
+
+	// Both over-reads and overflows result in undefined behavior.
+	// This particular kind of undefined behavior is ESPECIALLY DANGEROUS.
+	
+	print_numbers(my_cool_numbers, 7);
+
+
+	int copy[7];
+	/*
+	for (int i = 0; i < 7; ++i) {
+		copy[i] = my_cool_numbers[i];
+	}
+	*/
+	
+	memcpy(copy, my_cool_numbers, sizeof(my_cool_numbers));
+
+	print_numbers(copy, 7);
+
 }
