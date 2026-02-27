@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 // 1. Preprocessing. The preprocessor acts on one translation unit
 //		at a time.
 // 2. Compilation. The compiler acts on one translation unit at a time.
@@ -14,9 +16,10 @@
 //		translation unit before it's used.
 
 // A function prototype is a way of declaring a function without
-// defining it.
+// defining it. A function prototype must EXACTLY MATCH the header of the
+// corresponding function definition.
 
-void say_hello(void);
+#include "say_hello.h"
 
 int main(void) {
 	say_hello();
