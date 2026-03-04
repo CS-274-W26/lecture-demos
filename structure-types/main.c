@@ -20,11 +20,29 @@ struct person create_person(int birth_year, const char* name) {
 	return result;
 }
 
+void free_person(const struct person* p) {
+	free(p->name);
+}
+
+struct person copy_person(const struct person* p) {
+	struct person deep_copy;
+	deep_copy.birth_year = p->birth_year;
+	deep_copy.name = malloc(sizeof(char) * (strlen(p->name) + 1));
+	strcpy(deep_copy.name, p->name);
+	return deep_copy;
+}
+
+void print_person(const struct person* p) {
+	printf("%s was born in %d.\n", p->name, p->birth_year);
+}
+
 int main(void) {
-	struct person samantha; // samantha is a structure
+	struct person samantha = create_person(1999, "Samantha");
+	/*struct person samantha; // samantha is a structure
 	samantha.birth_year = 1999; // dot operator
-	samantha.name = NULL;
-	printf("Samantha was born in %d\n", samantha.birth_year);
+	samantha.name = NULL;*/
+	// printf("Samantha was born in %d\n", samantha.birth_year);
+	print_person(&samantha);
 
 	struct person* ptr = &samantha;
 	printf("%p\n", ptr);
@@ -56,10 +74,15 @@ int main(void) {
 	// The alternative is a deep copy. In C, deep copies must be facilitated
 	// manually.
 	
+	/*
 	struct person joseph;
 	joseph.birth_year = joe->birth_year;
 	joseph.name = malloc(sizeof(char) * (strlen(joe->name) + 1));
 	strcpy(joseph.name, joe->name);
+	*/
+	struct person joseph = copy_person(joe);
+
+
 	joseph.name[0] = 'L';
 	printf("%s\n", joseph.name);
 	printf("%s\n", joe->name);
@@ -72,5 +95,27 @@ int main(void) {
 
 	strcpy(alex.name, "Alex");
 
+	free_person(&alex);
+	free_person(&samantha);
+	free_person(&joseph);
+	free_person(joe);
+
 	free(joe);
+
+	struct person people[12];
+	for (int i = 0; i < 12; ++i) {
+		people[i] = create_person(1990, "Mahatma Gandhi");
+	}
+
+
+	for (int i = 0; i < 12; ++i) {
+		free_person(&people[i]);
+	}
+
+
+
+	typedef struct person p;
+
+
+	p jim = create_person(1985, "Jim");
 }

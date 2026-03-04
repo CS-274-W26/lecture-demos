@@ -12,4 +12,11 @@ struct person {
 	char* name;
 }; // <- mind the semicolon
 
+/*
+struct person {
+	int birth_year;
+	char name[1024];
+}; // <- mind the semicolon
+*/
+
 #endif
