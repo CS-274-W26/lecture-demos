@@ -9,7 +9,7 @@ int main(void) {
 	
 	fprintf(file_stream, "Hello, %d World!\n", 12);
 
-
+	
 
 	fclose(file_stream);
 }
